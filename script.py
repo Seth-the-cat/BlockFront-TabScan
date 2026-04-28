@@ -259,6 +259,7 @@ for region in values:
     region.x = sc_x
 
 scancolumn(sclist)
+CleanupClasses()
 
 print("Axis Team")
 print("|    USERNAME (UNEDITED)    |      CLASS      | KILLS | ASSISTS | CAPTURES | SCORE |")
