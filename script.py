@@ -3,7 +3,8 @@ import numpy as np
 import pytesseract
 import easyocr
 
-img = cv2.imread(r"training images\testimg.png")
+img = cv2.imread(r"training images - 1440p GUI3\testimg.png")
+#note: Tesseract OCR uses OEM 2, requiring additional ENG training data to be downloaded from their repository.
 pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
 
 class interest_region:
