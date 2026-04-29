@@ -2,10 +2,19 @@ import cv2
 import numpy as np
 import pytesseract
 import easyocr
+import argparse
 
-img = cv2.imread(r"training images - 1440p GUI3\testimg.png")
+parser = argparse.ArgumentParser(prog='BF-Tabscan', description='Uses OCR to read a Blockfront tablist and return a table')
+
+parser.add_argument('image')
+parser.add_argument("-gpu","--use_gpu",help="Enable GPU scanning",nargs='?', const=True, default=False)
+parser.add_argument("-load-tesseract",'--load_pytesseract',help="Calls tesseract ",nargs='?', const=True, default=False)
+args = parser.parse_args()
+
+img = cv2.imread(args.image)
 #note: Tesseract OCR uses OEM 2, requiring additional ENG training data to be downloaded from their repository.
-pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
+if load_pytesseract = True:
+    pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
 
 class interest_region:
     def __init__(self, x: int, y: int, width: int, height: int):
@@ -103,7 +112,7 @@ values = [
 uppercolorlimit = np.array([40, 70, 70])
 lowercolorlimit = np.array([30, 60, 60])
 
-reader = easyocr.Reader(['en'], gpu=True)
+reader = easyocr.Reader(['en'], gpu=args.use_gpu)
 
 teamtarget = np.array([70, 125, 121])
 teamlower = teamtarget - 10
@@ -139,7 +148,6 @@ def scancolumn(targetlist=list):
 
             targetlist.append(str(text).strip())
             
-
 scancolumn(userlist)
 
 # I have this one as a separate function because it scans for yellow text instead of green, and uses pytesseract instead of easyocr.
